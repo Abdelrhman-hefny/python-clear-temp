@@ -27,7 +27,7 @@ jobs:
         pyinstaller --onefile --noconsole cleanup.py  # قم بتغيير الاسم إذا لزم الأمر
 
     - name: Upload .exe file
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # استخدم v3 بدلاً من v2
       with:
         name: cleanup-executable
         path: dist/cleanup.exe  # تأكد من مطابقة اسم الملف الناتج
