@@ -1,0 +1,33 @@
+name: Build .exe
+
+on:
+  push:
+    branches:
+      - main  # أو الفرع الذي تريده
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest  # استخدام Windows لتكوين ملف .exe
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # حدد إصدار Python الذي ترغب في استخدامه
+
+    - name: Install dependencies
+      run: |
+        pip install pyinstaller
+
+    - name: Build .exe
+      run: |
+        pyinstaller --onefile --noconsole cleanup.py  # قم بتغيير الاسم إذا لزم الأمر
+
+    - name: Upload .exe file
+      uses: actions/upload-artifact@v2
+      with:
+        name: cleanup-executable
+        path: dist/cleanup.exe  # تأكد من مطابقة اسم الملف الناتج
